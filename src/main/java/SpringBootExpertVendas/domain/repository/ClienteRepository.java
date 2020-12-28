@@ -1,20 +1,42 @@
 package SpringBootExpertVendas.domain.repository;
+import javax.persistence.EntityManager;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+/*
 import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+*/
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import SpringBootExpertVendas.domain.Cliente;
 
 @Repository
-public class ClienteRepository {
+public class ClienteRepository  {
 	
-	 private static String INSERT = "insert into cliente (nome) values (?) ";
+	
+	@Autowired
+	public EntityManager entityManager;
+	
+	@Transactional
+	public Cliente salvar(Cliente cliente){
+		entityManager.persist(cliente);
+        return cliente;
+    }
+	
+	
+	
+	
+	/*
+		private static String INSERT = "insert into cliente (nome) values (?) ";
 	    private static String SELECT_ALL = "SELECT * FROM CLIENTE ";
 	    private static String UPDATE = "update cliente set nome = ? where id = ? ";
 	    private static String DELETE = "delete from cliente where id = ? ";
@@ -62,5 +84,5 @@ public class ClienteRepository {
 	            }
 	        };
 	    }
-
+*/
 }

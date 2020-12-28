@@ -1,5 +1,8 @@
 package SpringBootExpertVendas.domain;
 
+
+
+
 public class ItemPedido {
 	private Integer id;
 	private Pedido pedido;

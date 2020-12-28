@@ -16,6 +16,8 @@ import SpringBootExpertVendas.domain.repository.ClienteRepository;
 @RestController
 public class SpringBootExpertVendasApplication {
 	
+	/*
+	
 	 @Bean
 	    public CommandLineRunner init(@Autowired ClienteRepository clientes){
 	        return args -> {
@@ -51,7 +53,7 @@ public class SpringBootExpertVendasApplication {
 	            }
 	        };
 	    }
-
+*/
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootExpertVendasApplication.class, args);
 	}
