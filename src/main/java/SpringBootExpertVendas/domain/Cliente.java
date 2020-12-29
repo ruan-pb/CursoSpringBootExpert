@@ -1,9 +1,13 @@
 package SpringBootExpertVendas.domain;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Cliente {
@@ -12,6 +16,9 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String nome;
+	
+	@OneToMany(mappedBy = "cliente",fetch = FetchType.LAZY)
+	private Set<Pedido>pedidos;
 	
 
     public Cliente() {
@@ -37,6 +44,12 @@ public class Cliente {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+
+	public Set<Pedido> getPedidos() {
+		return pedidos;
+	}
+
 
 	@Override
 	public String toString() {
