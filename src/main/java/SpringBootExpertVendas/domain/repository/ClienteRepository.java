@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 /*
 import java.sql.ResultSet;
 
@@ -23,8 +24,17 @@ import org.springframework.transaction.annotation.Transactional;
 import SpringBootExpertVendas.domain.Cliente;
 
 @Repository
-public class ClienteRepository {
+public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 
+	List<Cliente> findByNomeLike(String nome);
+	
+
+
+
+}
+
+
+	/*
 	@Autowired
 	public EntityManager entityManager;
 	@Transactional
@@ -71,7 +81,7 @@ public class ClienteRepository {
 }
 	 
 
-	/*
+	
 	 * private static String INSERT = "insert into cliente (nome) values (?) ";
 	 * private static String SELECT_ALL = "SELECT * FROM CLIENTE "; private static
 	 * String UPDATE = "update cliente set nome = ? where id = ? "; private static

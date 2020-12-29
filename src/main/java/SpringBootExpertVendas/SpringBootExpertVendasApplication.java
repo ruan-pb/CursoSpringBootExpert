@@ -15,37 +15,47 @@ import SpringBootExpertVendas.domain.repository.ClienteRepository;
 @SpringBootApplication
 @RestController
 public class SpringBootExpertVendasApplication {
-	
-	/*
-	
-	 @Bean
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringBootExpertVendasApplication.class, args);
+	}
+
+	@Bean
 	    public CommandLineRunner init(@Autowired ClienteRepository clientes){
 	        return args -> {
 	            System.out.println("Salvando clientes");
-	            clientes.salvar(new Cliente("Dougllas"));
-	            clientes.salvar(new Cliente("Outro Cliente"));
+	            clientes.save(new Cliente("Dougllas"));
+	            clientes.save(new Cliente("Outro Cliente"));
 
-	            List<Cliente> todosClientes = clientes.obterTodos();
+	            List<Cliente> todosClientes = clientes.findAll();
 	            todosClientes.forEach(System.out::println);
 
 	            System.out.println("Atualizando clientes");
 	            todosClientes.forEach(c -> {
 	                c.setNome(c.getNome() + " atualizado.");
-	                clientes.atualizar(c);
+	                clientes.save(c);
 	            });
 
-	            todosClientes = clientes.obterTodos();
+	            todosClientes = clientes.findAll();
 	            todosClientes.forEach(System.out::println);
 
 	            System.out.println("Buscando clientes");
-	            clientes.buscarPorNome("Cli").forEach(System.out::println);
+	            clientes.findByNomeLike("Cli").forEach(System.out::println);
+	            
+	            System.out.println("deletando clientes");
+	            clientes.findAll().forEach(c -> {
+	            clientes.delete(c);
+	            });
+	            
+	            
+	            
+	            
+	            
+	            
+	 
 
-//	            System.out.println("deletando clientes");
-//	            clientes.obterTodos().forEach(c -> {
-//	                clientes.deletar(c);
-//	            });
 
-	            todosClientes = clientes.obterTodos();
+	            todosClientes = clientes.findAll();
 	            if(todosClientes.isEmpty()){
 	                System.out.println("Nenhum cliente encontrado.");
 	            }else{
@@ -53,10 +63,10 @@ public class SpringBootExpertVendasApplication {
 	            }
 	        };
 	    }
-*/
-	public static void main(String[] args) {
-		SpringApplication.run(SpringBootExpertVendasApplication.class, args);
-	}
+
+	
 	
 
+;
 }
+
