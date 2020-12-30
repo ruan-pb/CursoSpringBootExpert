@@ -8,7 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-
 public class ItemPedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

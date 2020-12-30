@@ -19,6 +19,8 @@ public class Cliente {
 	private Integer id;
 	private String nome;
 	
+	private String cpf;
+	
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente",fetch = FetchType.LAZY)
@@ -53,12 +55,27 @@ public class Cliente {
 	public Set<Pedido> getPedidos() {
 		return pedidos;
 	}
+	
 
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public void setPedidos(Set<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
 
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", nome=" + nome + "]";
 	}
+
+	
 	
 	
 

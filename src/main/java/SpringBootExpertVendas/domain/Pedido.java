@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,6 +28,9 @@ public class Pedido {
 	private LocalDate dataPedido;
 	@Column(name = "total",precision = 20,scale = 2)
 	private BigDecimal Total;
+	
+	@Enumerated(EnumType.STRING)
+	private StatusPedido status;
 	
 	@OneToMany(mappedBy = "pedido")
 	private List<ItemPedido>itens;
@@ -60,6 +65,13 @@ public class Pedido {
 	}
 	public void setItens(List<ItemPedido> itens) {
 		this.itens = itens;
+	}
+	
+	public StatusPedido getStatus() {
+		return status;
+	}
+	public void setStatus(StatusPedido status) {
+		this.status = status;
 	}
 	@Override
 	public String toString() {
