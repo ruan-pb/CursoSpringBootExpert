@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class Produto {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@NotEmpty(message = "campo descrição é obrigatorio")
