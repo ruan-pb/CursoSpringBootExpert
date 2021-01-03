@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException.BadRequest;
 import org.springframework.web.server.ResponseStatusException;
 
 import SpringBootExpertVendas.domain.ItemPedido;
@@ -28,6 +29,10 @@ import SpringBootExpertVendas.dto.InformacoesItemPedidoDTO;
 import SpringBootExpertVendas.dto.PedidoDTO;
 import SpringBootExpertVendas.dto.informacoesPedidoDTO;
 import SpringBootExpertVendas.service.PedidoServicoImpl;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/api/pedidos")
@@ -48,7 +53,12 @@ public class PedidoController {
 	}
 
 	@GetMapping("{id}")
-	public informacoesPedidoDTO getById(@PathVariable Integer id) {
+	@ApiOperation("Buscar Pedido pelo ID")
+	@ApiResponses({
+		@ApiResponse(code = 204, message = "Pedido encontrado com sucesso"),
+		@ApiResponse(code = 404, message = "Pedido não encontrado pelo ID informado")
+	})
+	public informacoesPedidoDTO getById(@PathVariable @ApiParam("Id do Produto")Integer id) {
 		return service.obterPedidoCompleto(id).map(p -> converter(p))
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido não encontrado"));
 
@@ -75,6 +85,11 @@ public class PedidoController {
 	
 	@PatchMapping("{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ApiOperation("Atualizar Pedido")
+	@ApiResponses({
+		@ApiResponse(code = 204, message = "Pedido Atualizado com Sucesso"),
+		@ApiResponse(code = 400, message = "Erro na atualização do pedido")
+	})
 	public void updateStatus(@PathVariable Integer id ,@RequestBody AtualizacaoStatusPedidoDTO dto) {
 		String novoStatus = dto.getNovoStatus();
 		service.atualizaStatus(id, StatusPedido.valueOf(novoStatus));

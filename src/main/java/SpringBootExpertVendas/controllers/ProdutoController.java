@@ -23,6 +23,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import SpringBootExpertVendas.domain.Produto;
 import SpringBootExpertVendas.domain.repository.ProdutoRepository;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/api/produtos")
@@ -34,13 +38,23 @@ public class ProdutoController {
 	
 	@PostMapping
 	@ResponseStatus(CREATED)
+	@ApiOperation("Produto salvo com sucesso")
+	@ApiResponses({
+		@ApiResponse(code = 204, message = "Produto salvo com sucesso"),
+		@ApiResponse(code = 400, message = "Erro de validação")
+	})
 	public Produto save (@RequestBody @Valid Produto produto) {
 		return produtoBD.save(produto);
 	}
 	
 	@PutMapping("{}")
 	@ResponseStatus(NO_CONTENT)
-	public void update(@PathVariable Integer id , @Valid @RequestBody Produto produto) {
+	@ApiOperation("Atualização do Produto")
+	@ApiResponses({
+		@ApiResponse(code = 204, message = "Produto atualizado com sucesso"),
+		@ApiResponse(code = 400, message = "Erro na atualização")
+	})
+	public void update(@PathVariable @ApiParam("Id do Produto")Integer id , @Valid @RequestBody Produto produto) {
 		produtoBD.findById(id).map(p -> {
 			produto.setId(p.getId());
 			produtoBD.save(produto);
@@ -50,7 +64,12 @@ public class ProdutoController {
 
 	}
 	@DeleteMapping("{id}")
-	public void delete(@PathVariable Integer id) {
+	@ApiOperation("remover Produto")
+	@ApiResponses({
+		@ApiResponse(code = 204, message = "Prodtu removico com sucesso"),
+		@ApiResponse(code = 400, message = "Erro ao remover produto")
+	})
+	public void delete(@PathVariable @ApiParam("Id do Produto")Integer id) {
 		produtoBD.findById(id)
 		.map(p -> {
 			produtoBD.delete(p);
@@ -60,7 +79,12 @@ public class ProdutoController {
 	}
 	
 	@GetMapping("{id}")
-	public void getbyId(@PathVariable Integer id) {
+	@ApiOperation("Buscar produto pelo Id")
+	@ApiResponses({
+		@ApiResponse(code = 204, message = "Produto recuparado com Sucesso"),
+		@ApiResponse(code = 404, message = "Produto não encontrado com ID informado")
+	})
+	public void getbyId(@PathVariable @ApiParam("Id do Produto")Integer id) {
 		produtoBD.findById(id).orElseThrow(() -> 
 		new ResponseStatusException(HttpStatus.NOT_FOUND, "produto não encontrado"));
 	}

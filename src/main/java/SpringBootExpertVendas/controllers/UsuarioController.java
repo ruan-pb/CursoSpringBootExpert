@@ -20,6 +20,9 @@ import SpringBootExpertVendas.dto.TokenDTO;
 import SpringBootExpertVendas.exception.SenhaInvalidaException;
 import SpringBootExpertVendas.security.jwt.JwtService;
 import SpringBootExpertVendas.service.UsuarioServiceImpl;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -35,6 +38,11 @@ public class UsuarioController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
+	@ApiOperation("Salvar um novo Usuario")
+	@ApiResponses({
+		@ApiResponse(code = 204, message = "Usuario salvo com sucesso"),
+		@ApiResponse(code = 400, message = "Erro de validação")
+	})
 	public Usuario salvar(@RequestBody @Valid Usuario usuario) {
 		String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
 		usuario.setSenha(senhaCriptografada);
